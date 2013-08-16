@@ -1,7 +1,7 @@
 {
   "name": "open-graph",
   "version": "0.1.0",
-  "description": "Returns the Open Graph protocol meta data from a given URL",
+  "description": "An [Open Graph](http://ogp.me/) implementation for Node.js.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
