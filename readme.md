@@ -37,11 +37,9 @@ Outputs:
 
 # Todo
 
-1. **Errors**  
-	Right now the err parameter is useless
-2. **Better parser**  
+1. **Better parser**  
 	Meta data should be parsed into pure JSON and arrays should be handled at root nodes, not leaf nodes
-3. **Better data types**  
+2. **Better data types**  
 	Convert properties to numbers, etc.
-4. **Fallback data**  
+3. **Fallback data**  
 	If Open Graph data isn't present, scrap img elements and document titles off the page.

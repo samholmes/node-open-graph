@@ -11,7 +11,9 @@ var shorthandProperties = {
 
 
 module.exports = function(url, cb, options){
-	exports.getHTML(url, function(html){
+	exports.getHTML(url, function(err, html){
+		if (err) return cb(err);
+		
 		cb(null, exports.parse(html, options));
 	})
 }
@@ -29,7 +31,7 @@ exports.getHTML = function(url, cb){
 	
 	url = require('url').format(purl);
 	
-	httpModule.get(url, function(res){
+	var client = httpModule.get(url, function(res){
 		res.setEncoding('utf-8');
 		
 		var html = "";
@@ -45,11 +47,15 @@ exports.getHTML = function(url, cb){
 			}
 			else
 			{
-				cb(html);
+				cb(null, html);
 			}
 			
 		});
 	});
+	
+	client.on('error', function(err){
+		cb(err);
+	})
 }
 
 
