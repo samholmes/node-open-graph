@@ -89,15 +89,15 @@ exports.parse = function(html, options){
 		metaTags = $('meta');
 	
 	metaTags.each(function() {
-		var tagAttribs = this[0].attribs,
-			propertyAttr = tagAttribs['property'];
+		var element = $(this);
+			propertyAttr = element.attr('property');
 		
 		// If meta element isn't an "og:" property, skip it
 		if (!propertyAttr || propertyAttr.substring(0, namespace.length) !== namespace)
 			return;
 		
 		var property = propertyAttr.substring(namespace.length+1),
-			content = tagAttribs['content'];
+			content = element.attr('content');
 		
 		// If property is a shorthand for a longer property,
 		// Use the full property
