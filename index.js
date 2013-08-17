@@ -18,10 +18,16 @@ module.exports = function(url, cb, options){
 
 
 exports.getHTML = function(url, cb){
-	var protocol = require('url').parse(url).protocol;
-	var httpModule = protocol === 'https:'
+	var purl = require('url').parse(url);
+	
+	if (!purl.protocol)
+		purl = require('url').parse("http://"+url);
+	
+	var httpModule = purl.protocol === 'https:'
 		? https
 		: http;
+	
+	url = require('url').format(purl);
 	
 	httpModule.get(url, function(res){
 		res.setEncoding('utf-8');
