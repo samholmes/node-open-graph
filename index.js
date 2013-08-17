@@ -64,23 +64,28 @@ exports.parse = function(html, options){
 	
 	var $ = cheerio.load(html);
 	
+	
 	// Check for xml namespace
 	var namespace,
-		attribs = $('html')[0].attribs,
-		attribKeys = Object.keys(attribs),
-		numberOfAttribs = attribKeys.length;
+		$html = $('html');
 	
-	for (var i = 0; i < numberOfAttribs; ++i){
-		var attrName = attribKeys[i],
-			attrValue = attribs[attrName];
+	if ($html.length)
+	{
+		var attribKeys = Object.keys($html[0].attribs);
 		
-		if (attrValue.toLowerCase() === 'http://opengraphprotocol.org/schema/'
-			&& attrName.substring(0, 6) == 'xmlns:')
-		{
-			namespace = attrName.substring(6);
-			break;
-		}
+		attribKeys.some(function(attrName){
+			var attrValue = $html.attr(attrName);
+			
+			if (attrValue.toLowerCase() === 'http://opengraphprotocol.org/schema/'
+				&& attrName.substring(0, 6) == 'xmlns:')
+			{
+				namespace = attrName.substring(6);
+				return false;
+			}
+		})
 	}
+	else if (options.strict)
+		return null;
 	
 	if (!namespace) 
 		// If no namespace is explicitly set..

@@ -1,6 +1,6 @@
 {
   "name": "open-graph",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "An Open Graph implementation for Node.js.",
   "main": "index.js",
   "scripts": {
