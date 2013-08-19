@@ -1,7 +1,7 @@
 # Open Graph for Node.js
 
 An [Open Graph](http://ogp.me/) implementation for Node.js. 
-Simple to use; give it a URL and it'll give you the open graph meta properties
+Simple to use; give it a URL and it'll give you the open graph meta properties scraped from that URL.
 
 ## Install
 
