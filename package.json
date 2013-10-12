@@ -16,8 +16,11 @@
   "repository": {
     "type": "git",
     "url": "http://github.com/samholmes/node-open-graph.git",
-    "web" : "http://github.com/samholmes/node-open-graph"
+    "web": "http://github.com/samholmes/node-open-graph"
   },
   "author": "Sam Holmes",
-  "license": "BSD"
+  "license": "BSD",
+  "dependencies": {
+    "cheerio": "~0.12.3"
+  }
 }
