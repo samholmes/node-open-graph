@@ -1,6 +1,6 @@
 {
   "name": "open-graph",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "An Open Graph implementation for Node.js.",
   "main": "index.js",
   "scripts": {
@@ -21,6 +21,7 @@
   "author": "Sam Holmes",
   "license": "BSD",
   "dependencies": {
-    "cheerio": "^0.17.0"
+    "cheerio": "^0.17.0",
+    "request": "^2.73.0"
   }
 }

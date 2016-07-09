@@ -1,5 +1,6 @@
 var http = require('http'),
 	https = require('https'),
+	request = require('request'),
 	cheerio = require('cheerio');
 
 
@@ -31,31 +32,21 @@ exports.getHTML = function(url, cb){
 	
 	url = require('url').format(purl);
 	
-	var client = httpModule.get(url, function(res){
-		res.setEncoding('utf-8');
-		
-		var html = "";
-		
-		res.on('data', function(data){
-			html += data;
-		});
-		
-		res.on('end', function(){
-			if (res.statusCode >= 300 && res.statusCode < 400)
-			{
-				exports.getHTML(res.headers.location, cb);
-			}
-			else
-			{
-				cb(null, html);
-			}
+	request({
+			url: url, 
+			encoding: 'utf8',
+			gzip: true
+		},
+		function(err, res, body) {
+			if (err) return cb(err);
 			
-		});
-	});
-	
-	client.on('error', function(err){
-		cb(err);
-	})
+			if (res.statusCode === 200) {
+				cb(null, body);
+			}
+			else {
+				cb(new Error("Request failed with HTTP status code: "+statusCode));
+			}
+		})
 }
 
 
