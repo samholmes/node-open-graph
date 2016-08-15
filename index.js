@@ -44,7 +44,7 @@ exports.getHTML = function(url, cb){
 				cb(null, body);
 			}
 			else {
-				cb(new Error("Request failed with HTTP status code: "+statusCode));
+				cb(new Error("Request failed with HTTP status code: "+res.statusCode));
 			}
 		})
 }
