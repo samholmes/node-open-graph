@@ -11,7 +11,7 @@ var shorthandProperties = {
 }
 
 
-module.exports = function(url, cb, options){
+exports = module.exports = function(url, cb, options){
 	exports.getHTML(url, function(err, html){
 		if (err) return cb(err);
 		
