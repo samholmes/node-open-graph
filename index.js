@@ -14,8 +14,8 @@ var shorthandProperties = {
 exports = module.exports = function(url, cb, options){
 	exports.getHTML(url, function(err, html){
 		if (err) return cb(err);
-		var $ = cheerio.load(html);
-		cb(null, exports.parse($, options));
+		
+		cb(null, exports.parse(html, options));
 	})
 }
 
@@ -53,6 +53,9 @@ exports.getHTML = function(url, cb){
 
 exports.parse = function($, options){
 	options = options || {};
+	
+	if (typeof $ === 'string')
+		$ = cheerio.load($);
 	
 	// Check for xml namespace
 	var namespace,
