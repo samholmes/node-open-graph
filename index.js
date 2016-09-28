@@ -35,7 +35,8 @@ exports.getHTML = function(url, cb){
 	request({
 			url: url, 
 			encoding: 'utf8',
-			gzip: true
+			gzip: true,
+			jar: true
 		},
 		function(err, res, body) {
 			if (err) return cb(err);
