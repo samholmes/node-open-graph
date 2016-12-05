@@ -1,3 +1,5 @@
+'use strict';
+
 var http = require('http'),
 	https = require('https'),
 	request = require('request'),
@@ -92,7 +94,7 @@ exports.parse = function($, options){
 		metaTags = $('meta');
 	
 	metaTags.each(function() {
-		var element = $(this);
+		var element = $(this),
 			propertyAttr = element.attr('property');
 		
 		// If meta element isn't an "og:" property, skip it
