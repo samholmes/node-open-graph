@@ -1,6 +1,4 @@
-var http = require('http'),
-	https = require('https'),
-	request = require('request'),
+var	request = require('request'),
 	cheerio = require('cheerio');
 
 
@@ -25,10 +23,6 @@ exports.getHTML = function(url, cb){
 	
 	if (!purl.protocol)
 		purl = require('url').parse("http://"+url);
-	
-	var httpModule = purl.protocol === 'https:'
-		? https
-		: http;
 	
 	url = require('url').format(purl);
 	
