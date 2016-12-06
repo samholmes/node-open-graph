@@ -1,3 +1,5 @@
+'use strict';
+
 var	request = require('request'),
 	cheerio = require('cheerio');
 
@@ -86,7 +88,7 @@ exports.parse = function($, options){
 		metaTags = $('meta');
 	
 	metaTags.each(function() {
-		var element = $(this);
+		var element = $(this),
 			propertyAttr = element.attr('property');
 		
 		// If meta element isn't an "og:" property, skip it
