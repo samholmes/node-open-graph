@@ -151,6 +151,25 @@ exports.parse = function($, options){
 			ptr[key] = [ ptr[key], content ];
 		}
 	});
-	
+
+    if(!meta.hasOwnProperty('image')){
+		var img = $('img')
+
+		//If no exist Image element, skip it
+		if(img.length != 0){
+			var imgObj = {}
+			imgObj.url = $('img').attr('src');
+
+			//If no exist size attribs, skip it
+			if($('img').attr('width')) imgObj.width = $('img').attr('width');
+			if($('img').attr('height')) imgObj.height = $('img').attr('height');
+
+			meta['image'] = imgObj
+		}
+
+	}
+
+
+
 	return meta;
 }
