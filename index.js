@@ -152,9 +152,35 @@ exports.parse = function($, options){
 		}
 	});
 
+
 	// If no 'og:title', use title tag
-	if(!meta.hasOwnProperty('title'))
+	if(!meta.hasOwnProperty('title')){
 		meta['title'] = $('title').text();
+	}
+
+
+	// Temporary fallback for image meta.
+	// Fallback to the first image on the page.
+	// In the future, the image property could be populated
+	// with an array of images, maybe.
+	if(!meta.hasOwnProperty('image')){
+		var img = $('img');
+
+		// If there are image elements in the page
+		if(img.length){
+			var imgObj = {};
+			imgObj.url = $('img').attr('src');
+
+			// Set image width and height properties if respective attributes exist
+			if($('img').attr('width'))
+				imgObj.width = $('img').attr('width');
+			if($('img').attr('height'))
+				imgObj.height = $('img').attr('height');
+
+			meta['image'] = imgObj;
+		}
+
+	}
 
 	return meta;
 }
