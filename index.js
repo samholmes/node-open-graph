@@ -152,19 +152,25 @@ exports.parse = function($, options){
 		}
 	});
 
-    if(!meta.hasOwnProperty('image')){
-		var img = $('img')
+	// Temporary fallback for image meta.
+	// Fallback to the first image on the page.
+	// In the future, the image property could be populated
+	// with an array of images, maybe.
+	if(!meta.hasOwnProperty('image')){
+		var img = $('img');
 
-		//If no exist Image element, skip it
-		if(img.length != 0){
-			var imgObj = {}
+		// If there are image elements in the page
+		if(img.length){
+			var imgObj = {};
 			imgObj.url = $('img').attr('src');
 
-			//If no exist size attribs, skip it
-			if($('img').attr('width')) imgObj.width = $('img').attr('width');
-			if($('img').attr('height')) imgObj.height = $('img').attr('height');
+			// Set image width and height properties if respective attributes exist
+			if($('img').attr('width'))
+				imgObj.width = $('img').attr('width');
+			if($('img').attr('height'))
+				imgObj.height = $('img').attr('height');
 
-			meta['image'] = imgObj
+			meta['image'] = imgObj;
 		}
 
 	}
