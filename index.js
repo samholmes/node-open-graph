@@ -14,14 +14,14 @@ var shorthandProperties = {
 exports = module.exports = function(url, cb, options){
 	exports.getHTML(url, function(err, html){
 		if (err) return cb(err);
-		
+
 		try {
 			var parsedMeta = exports.parse(html, options);
 		}
 		catch (parseErr) {
 			cb(parseErr);
 		}
-		
+
 		cb(null, parsedMeta);
 	})
 }
@@ -29,21 +29,21 @@ exports = module.exports = function(url, cb, options){
 
 exports.getHTML = function(url, cb){
 	var purl = require('url').parse(url);
-	
+
 	if (!purl.protocol)
 		purl = require('url').parse("http://"+url);
-	
+
 	url = require('url').format(purl);
-	
+
 	request({
-			url: url, 
+			url: url,
 			encoding: 'utf8',
 			gzip: true,
 			jar: true
 		},
 		function(err, res, body) {
 			if (err) return cb(err);
-			
+
 			if (res.statusCode === 200) {
 				cb(null, body);
 			}
@@ -56,21 +56,21 @@ exports.getHTML = function(url, cb){
 
 exports.parse = function($, options){
 	options = options || {};
-	
+
 	if (typeof $ === 'string')
 		$ = cheerio.load($);
-	
+
 	// Check for xml namespace
 	var namespace,
 		$html = $('html');
-	
+
 	if ($html.length)
 	{
 		var attribKeys = Object.keys($html[0].attribs);
-		
+
 		attribKeys.some(function(attrName){
 			var attrValue = $html.attr(attrName);
-			
+
 			if (attrValue.toLowerCase() === 'http://opengraphprotocol.org/schema/'
 				&& attrName.substring(0, 6) == 'xmlns:')
 			{
@@ -81,8 +81,8 @@ exports.parse = function($, options){
 	}
 	else if (options.strict)
 		return null;
-	
-	if (!namespace) 
+
+	if (!namespace)
 		// If no namespace is explicitly set..
 		if (options.strict)
 			// and strict mode is specified, abort parse.
@@ -90,26 +90,26 @@ exports.parse = function($, options){
 		else
 			// and strict mode is not specific, then default to "og"
 			namespace = "og";
-	
+
 	var meta = {},
 		metaTags = $('meta');
-	
+
 	metaTags.each(function() {
 		var element = $(this),
 			propertyAttr = element.attr('property');
-		
+
 		// If meta element isn't an "og:" property, skip it
 		if (!propertyAttr || propertyAttr.substring(0, namespace.length) !== namespace)
 			return;
-		
+
 		var property = propertyAttr.substring(namespace.length+1),
 			content = element.attr('content');
-		
+
 		// If property is a shorthand for a longer property,
 		// Use the full property
 		property = shorthandProperties[property] || property;
-		
-		
+
+
 		var key, tmp,
 			ptr = meta,
 			keys = property.split(':');
@@ -152,6 +152,13 @@ exports.parse = function($, options){
 		}
 	});
 
+
+	// If no 'og:title', use title tag
+	if(!meta.hasOwnProperty('title')){
+		meta['title'] = $('title').text();
+	}
+
+
 	// Temporary fallback for image meta.
 	// Fallback to the first image on the page.
 	// In the future, the image property could be populated
@@ -174,8 +181,6 @@ exports.parse = function($, options){
 		}
 
 	}
-
-
 
 	return meta;
 }
