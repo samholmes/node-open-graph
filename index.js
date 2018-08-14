@@ -112,7 +112,7 @@ exports.parse = function($, options){
 
 		var key, tmp,
 			ptr = meta,
-			keys = property.split(':');
+			keys = property.split(':', 4);
 
 		// we want to leave one key to assign to so we always use references
 		// as long as there's one key left, we're dealing with a sub-node and not a value
