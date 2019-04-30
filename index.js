@@ -12,7 +12,8 @@ var shorthandProperties = {
 
 
 exports = module.exports = function(url, cb, options){
-	exports.getHTML(url, function(err, html){
+  var userAgent = (options || {}).userAgent || 'NodeOpenGraphCrawler (https://github.com/samholmes/node-open-graph)'
+	exports.getHTML(url, userAgent, function(err, html){
 		if (err) return cb(err);
 
 		try {
@@ -27,7 +28,7 @@ exports = module.exports = function(url, cb, options){
 }
 
 
-exports.getHTML = function(url, cb){
+exports.getHTML = function(url, userAgent, cb){
 	var purl = require('url').parse(url);
 
 	if (!purl.protocol)
@@ -39,7 +40,8 @@ exports.getHTML = function(url, cb){
 			url: url,
 			encoding: 'utf8',
 			gzip: true,
-			jar: true
+      jar: true,
+      headers: { 'User-Agent': userAgent },
 		},
 		function(err, res, body) {
 			if (err) return cb(err);
