@@ -45,3 +45,7 @@ Outputs:
   Convert properties to numbers, etc.
 3. **Fallback data**
   If Open Graph data isn't present, scrap img elements and document titles off the page.
+
+# Special Thanks
+
+* [Snyk Security](https://snyk.io) team for reporting found security vulnerabilities.
