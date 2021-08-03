@@ -10,6 +10,11 @@ var shorthandProperties = {
 	"audio": "audio:url"
 }
 
+var keyBlacklist = [
+	'__proto__',
+	'constructor',
+	'prototype'
+]
 
 exports = module.exports = function(url, cb, options){
   var userAgent = (options || {}).userAgent || 'NodeOpenGraphCrawler (https://github.com/samholmes/node-open-graph)'
@@ -121,6 +126,8 @@ exports.parse = function($, options){
 
 		while (keys.length > 1) {
 			key = keys.shift();
+
+			if (keyBlacklist.includes(key)) continue
 
 			if (Array.isArray(ptr[key])) {
 				// the last index of ptr[key] should become
