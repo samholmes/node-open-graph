@@ -21,7 +21,7 @@
   "author": "Sam Holmes",
   "license": "BSD",
   "dependencies": {
-    "cheerio": "^0.22.0",
+    "cheerio": "^1.2.0",
     "request": "^2.73.0"
   }
 }
